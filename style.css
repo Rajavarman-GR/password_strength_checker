@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #800080, #0000FF); /* Gradient from purple to blue */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    animation: gradient-animation 10s ease infinite; /* Background animation */
+    background-size: 400% 400%; /* To create a smooth gradient transition */
+    position: relative;
+    overflow: hidden;
+}
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 350px;
+    text-align: center;
+    position: relative;
+    z-index: 1; /* Make sure the container is above the animated elements */
+}
+h1 {
+    font-size: 1.8em;
+    color: #333333;
+    margin-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+label {
+    font-size: 1em;
+    color: #555555;
+}
+input[type="password"], input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+input[type="password"]:focus, input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+input[type="checkbox"] {
+    margin-top: 10px;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+button {
+    padding: 10px 15px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+}
+button:first-of-type {
+    background-color: #007bff;
+}
+button:first-of-type:hover {
+    background-color: #0056b3;
+}
+button:last-of-type {
+    background-color: #28a745;
+}
+button:last-of-type:hover {
+    background-color: #218838;
+}
+.result-container {
+    margin-top: 15px;
+}
+.result, .recommendations {
+    margin-top: 10px;
+    text-align: left;
+}
+.result {
+    font-size: 1.1em;
+    color: #555555;
+}
+.recommendations {
+    color: #d9534f;
+}
+.recommendations strong {
+    font-weight: bold;
+    color: #c9302c;
+}
+.recommendations ul {
+    margin-top: 5px;
+    padding-left: 20px;
+    list-style: disc;
+}
+/* Floating foreground animations */
+.floating-element {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 0; /* Make sure they are below the container */
+    animation: float 6s ease-in-out infinite; /* Floating animation */
+}
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+/* Create multiple floating elements */
+.float1 {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+.float2 {
+    width: 80px;
+    height: 80px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 1s;
+}
+.float3 {
+    width: 60px;
+    height: 60px;
+    bottom: 30%;
+    left: 40%;
+    animation-delay: 2s;
+}
+.float4 {
+    width: 120px;
+    height: 120px;
+    bottom: 10%;
+    right: 5%;
+    animation-delay: 3s;
+}

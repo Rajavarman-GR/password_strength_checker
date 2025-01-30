@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Password Strength Checker</h1>
+
+        <div class="form-group">
+            <label for="password">Enter Password:</label>
+            <input type="password" id="password" name="password">
+        </div>
+
+        <div class="buttons">
+            <button onclick="checkStrength()">Check Strength</button>
+            <button onclick="generatePassword()">Generate Password</button>
+        </div>
+
+        <div id="strength-result" class="result"></div>
+        <div id="recommendations" class="recommendations"></div>
+    </div>
+
+    <script>
+        async function checkStrength() {
+            const password = document.getElementById("password").value;
+            const response = await fetch('/check', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({password})
+            });
+            const data = await response.json();
+            document.getElementById("strength-result").textContent = `Strength: ${data.strength}`;
+            document.getElementById("recommendations").innerHTML = data.recommendations.length > 0 
+                ? `<strong>Recommendations:</strong><ul>${data.recommendations.map(r => `<li>${r}</li>`).join('')}</ul>`
+                : "Your password is strong!";
+        }
+
+        async function generatePassword() {
+            const response = await fetch('/generate');
+            const data = await response.json();
+            document.getElementById("password").value = data.password;
+            checkStrength();
+        }
+    </script>
+</body>
+</html>

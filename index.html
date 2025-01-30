@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Rajavarman's Password Strength Checker</h1>
+        <div class="form-group">
+            <label for="password">Enter Password:</label>
+            <input type="password" id="password" name="password">
+            <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
+        </div>
+        <div class="buttons">
+            <button onclick="checkStrength()">Check Strength</button>
+            <button onclick="generatePassword()">Generate Password</button>
+        </div>
+        <div class="result-container">
+            <div id="strength-result" class="result"></div>
+            <div id="recommendations" class="recommendations"></div>
+        </div>
+    </div>
+    <!-- Floating Elements -->
+    <div class="floating-element float1"></div>
+    <div class="floating-element float2"></div>
+    <div class="floating-element float3"></div>
+    <div class="floating-element float4"></div>
+    <script>
+        async function checkStrength() {
+            const password = document.getElementById("password").value;
+            const response = await fetch('/check', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({password})
+            });
+            const data = await response.json();
+            document.getElementById("strength-result").textContent = `Strength: ${data.strength}`;
+            document.getElementById("recommendations").innerHTML = data.recommendations.length > 0 
+                ? `<strong>Recommendations:</strong><ul>${data.recommendations.map(r => `<li>${r}</li>`).join('')}</ul>`
+                : "Your password is strong!";
+        }
+        async function generatePassword() {
+            const response = await fetch('/generate');
+            const data = await response.json();
+            document.getElementById("password").value = data.password;
+            checkStrength();
+        }
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+    </script>
+</body>
+</html>
